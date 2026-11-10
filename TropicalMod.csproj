@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>10.0</LangVersion>
+    <Nullable>disable</Nullable>
+    <AssemblyName>TropicalMod</AssemblyName>
+    <RootNamespace>TropicalMod</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+
+    <!-- Pasta do jogo. Ajuste se instalar em outro lugar, ou passe -p:GtaPath=... no build. -->
+    <GtaPath Condition="'$(GtaPath)' == ''">D:\GTAV\GTAV</GtaPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- SHVDN é fornecido pelo jogo em runtime: só compila contra ele, não copia. -->
+    <PackageReference Include="ScriptHookVDotNet3" Version="3.6.0" ExcludeAssets="runtime" />
+    <PackageReference Include="LemonUI.SHVDN3" Version="2.2.0" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <!-- Depois do build, copia o mod para GTAV\scripts (se o jogo já estiver instalado). -->
+  <Target Name="DeployToGame" AfterTargets="Build" Condition="Exists('$(GtaPath)\GTA5.exe')">
+    <MakeDir Directories="$(GtaPath)\scripts" />
+    <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll;$(TargetDir)$(AssemblyName).pdb;$(TargetDir)LemonUI.SHVDN3.dll"
+          DestinationFolder="$(GtaPath)\scripts" SkipUnchangedFiles="true" ContinueOnError="true" />
+    <Message Importance="high" Text="TropicalMod copiado para $(GtaPath)\scripts — no jogo, aperte Insert para recarregar." />
+  </Target>
+
+</Project>
