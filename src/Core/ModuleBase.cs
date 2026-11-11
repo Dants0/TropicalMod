@@ -31,6 +31,9 @@ namespace TropicalMod.Core
         /// <summary>Chamado todo frame enquanto o módulo está ligado.</summary>
         public virtual void OnTick() { }
 
+        /// <summary>Tecla pressionada (só chamado com o módulo ligado e o menu fechado).</summary>
+        public virtual void OnKeyDown(System.Windows.Forms.KeyEventArgs e) { }
+
         public virtual void OnEnable() { }
         public virtual void OnDisable() { }
 

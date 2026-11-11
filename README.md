@@ -20,6 +20,8 @@ O build copia `TropicalMod.dll` + `LemonUI.SHVDN3.dll` para `GTAV\scripts`.
 Com o jogo aberto, **Insert** recarrega os scripts (sem reiniciar o GTA).
 
 - **F5**: menu de módulos
+- **F6**: recrutar parceiro (NPC mais próximo, ou chama um) / dispensar
+- **Shift+F6**: debug — força lealdade 10 para testar a traição
 - Log: `GTAV\scripts\TropicalMod.log` (e `ScriptHookVDotNet.log` na pasta do jogo)
 
 ## Estrutura

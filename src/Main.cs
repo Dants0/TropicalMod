@@ -22,6 +22,7 @@ namespace TropicalMod
         {
             new DebugHudModule(),
             new Modules.SocialFeed.SocialFeedModule(),
+            new Modules.Partner.PartnerModule(),
             // novos módulos aqui (um por dia de devlog)
         };
 
@@ -75,7 +76,17 @@ namespace TropicalMod
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == MenuKey)
+            {
                 _menu.Visible = !_menu.Visible;
+                return;
+            }
+            if (_menu.Visible) return;
+
+            foreach (var module in _modules)
+            {
+                if (module.Enabled)
+                    Safe(module, "OnKeyDown", () => module.OnKeyDown(e));
+            }
         }
 
         private void OnAborted(object sender, EventArgs e)
